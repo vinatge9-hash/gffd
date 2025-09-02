@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Niyantri Dog Care - Cart</title>
+  <link rel='stylesheet' href='https://unpkg.com/swiper@8/swiper-bundle.min.css'>
+  <script src='https://cdn.tailwindcss.com'></script>
+  <script src='https://unpkg.com/swiper@8/swiper-bundle.min.js'></script>
+  <style>
+    .opacity-0 { opacity: 0; }
+    .opacity-100 { opacity: 1; }
+  </style>
+</head>
+<body class='bg-gray-50'>
+  <!-- header -->
+  <header class='bg-white/70 backdrop-filter backdrop-blur-xl sticky top-0 z-50 shadow-sm'>
+    <nav class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <div class='flex items-center justify-between h-16'>
+        <a href='index.html' class='flex items-center text-xl font-bold text-gray-800'>
+          <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6 mr-2' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+            <path d='M4 12c0-2 2-4 4-4s4 2 4 4-2 4-4 4-4-2-4-4z' />
+            <path d='M16 12c0-2 2-4 4-4s4 2 4 4-2 4-4 4-4-2-4-4z' />
+          </svg>
+          Niyantri Dog Care
+        </a>
+        <div class='hidden md:flex items-center space-x-4'>
+          <a href='index.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Home</a>
+          <a href='menu.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Services</a>
+          <a href='cart.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Cart (<span id='cart-count'>0</span>)</a>
+          <a href='about.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>About</a>
+          <a href='contact.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id='page-content' class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 opacity-0'>
+    <section class='fade-in'>
+      <h1 class='text-3xl font-bold mb-4'>Your Cart</h1>
+      <p class='text-gray-600 mb-6'>Review items and proceed to payment with PayPal (mock).</p>
+    </section>
+
+    <section class='bg-white rounded-xl shadow p-6'>
+      <div id='cart-items-container' class='space-y-4'>
+        <!-- items will be rendered here by JS -->
+      </div>
+      <div class='flex items-center justify-between mt-4 border-t pt-4'>
+        <span class='font-semibold'>Total</span>
+        <span class='font-semibold' id='cart-total'>0.00</span>
+      </div>
+      <div class='mt-4 flex items-center justify-end'>
+        <button id='paypal-button' class='bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700'>Pay with PayPal (Mock)</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class='bg-gray-900 text-white py-6 mt-12'>
+    <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-sm'>
+      <p class='text-center'>© 2025 Niyantri Dog Care. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Cart page specific render
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartCount();
+      renderCartPage();
+    });
+
+    function getCart() { return JSON.parse(localStorage.getItem('shoppingCart')) || []; }
+    function renderCartPage() {
+      const cart = getCart();
+      const container = document.getElementById('cart-items-container');
+      const totalEl = document.getElementById('cart-total');
+      if (!container || !totalEl) return;
+      container.innerHTML = '';
+      if (cart.length === 0) {
+        container.innerHTML = '<p>Your cart is empty.</p>';
+        totalEl.textContent = '0.00';
+        return;
+      }
+      let total = 0;
+      cart.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between py-2 border-b';
+        row.innerHTML = `
+          <span>${item.name} (x${item.quantity})</span>
+          <div class='flex items-center space-x-4'>
+            <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            <button onclick="removeFromCart('${item.id}')" class='text-red-600 hover:text-red-800'>Remove</button>
+          </div>
+        `;
+        container.appendChild(row);
+        total += item.price * item.quantity;
+      });
+      totalEl.textContent = total.toFixed(2);
+    }
+    function removeFromCart(itemId) {
+      let cart = getCart(); cart = cart.filter(i => i.id !== itemId); localStorage.setItem('shoppingCart', JSON.stringify(cart)); updateCartCount(); renderCartPage();
+    }
+    function updateCartCount() {
+      const cart = getCart();
+      const total = cart.reduce((s, i) => s + i.quantity, 0);
+      const el = document.getElementById('cart-count'); if (el) el.textContent = total;
+    }
+    // PayPal mock handling
+    async function mockPayPalCheckout(totalAmount) { await new Promise(r => setTimeout(r, 800)); return { status: 'success', id: 'MOCK-' + Date.now() }; }
+    async function proceedToCheckout() {
+      const cart = getCart(); if (cart.length === 0) { alert('Your cart is empty.'); return; }
+      const amount = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+      const result = await mockPayPalCheckout(amount);
+      if (result.status === 'success') {
+        localStorage.removeItem('shoppingCart'); updateCartCount(); renderCartPage(); alert('Payment successful. Transaction id: ' + result.id);
+      } else { alert('Payment failed. Please try again.'); }
+    }
+    document.getElementById('paypal-button')?.addEventListener('click', proceedToCheckout);
+  </script>
+</body>
+</html>
