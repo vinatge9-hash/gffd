@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Niyantri Dog Care - Services</title>
+  <link rel='stylesheet' href='https://unpkg.com/swiper@8/swiper-bundle.min.css'>
+  <script src='https://cdn.tailwindcss.com'></script>
+  <script src='https://unpkg.com/swiper@8/swiper-bundle.min.js'></script>
+  <style>
+    .opacity-0 { opacity: 0; }
+    .opacity-100 { opacity: 1; }
+  </style>
+</head>
+<body class='bg-gray-50'>
+  <!-- header (identical across pages) -->
+  <header class='bg-white/70 backdrop-filter backdrop-blur-xl sticky top-0 z-50 shadow-sm'>
+    <nav class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <div class='flex items-center justify-between h-16'>
+        <a href='index.html' class='flex items-center text-xl font-bold text-gray-800'>
+          <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6 mr-2' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+            <path d='M4 12c0-2 2-4 4-4s4 2 4 4-2 4-4 4-4-2-4-4z' />
+            <path d='M16 12c0-2 2-4 4-4s4 2 4 4-2 4-4 4-4-2-4-4z' />
+          </svg>
+          Niyantri Dog Care
+        </a>
+        <div class='hidden md:flex items-center space-x-4'>
+          <a href='index.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Home</a>
+          <a href='menu.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Services</a>
+          <a href='cart.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Cart (<span id='cart-count'>0</span>)</a>
+          <a href='about.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>About</a>
+          <a href='contact.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Contact</a>
+        </div>
+        <div class='md:hidden'>
+          <button id='mobile-menu-button' class='p-2 rounded-md text-gray-700 hover:bg-gray-100'>
+            <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+              <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div id='mobile-menu' class='hidden md:hidden bg-white/90'>
+      <a href='index.html' class='block px-4 py-2'>Home</a>
+      <a href='menu.html' class='block px-4 py-2'>Services</a>
+      <a href='cart.html' class='block px-4 py-2'>Cart (<span id='mobile-cart-count'>0</span>)</a>
+      <a href='about.html' class='block px-4 py-2'>About</a>
+      <a href='contact.html' class='block px-4 py-2'>Contact</a>
+    </div>
+  </header>
+
+  <main id='page-content' class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 opacity-0'>
+    <section class='fade-in mb-6'>
+      <h1 class='text-3xl font-bold mb-2'>Our Services</h1>
+      <p class='text-gray-600'>Explore grooming, bathing and spa packages designed for Hyderabad-raised dogs.</p>
+    </section>
+
+    <section class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+      <!-- Bathing -->
+      <article class='bg-white rounded-xl shadow p-6 flex flex-col'>
+        <div class='h-40 bg-gray-100 rounded-md mb-4 flex items-center justify-center'>
+          <img src="https://images.pexels.com/photos/33662245/pexels-photo-33662245.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt='Bathing' class='max-h-full object-cover rounded-md'>
+        </div>
+        <h3 class='font-semibold text-lg'>Bathing</h3>
+        <p class='text-sm text-gray-600 mb-4'>Gentle cleansing with canine-safe shampoos.</p>
+        <div class='mt-auto flex items-center justify-between'>
+          <span class='font-semibold'>$25</span>
+          <button onclick="addToCart('svc-bath', 'Bathing', 25)" class='bg-amber-500 text-white px-3 py-2 rounded-md hover:bg-amber-600'>Add</button>
+        </div>
+      </article>
+      <!-- Spa -->
+      <article class='bg-white rounded-xl shadow p-6 flex flex-col'>
+        <div class='h-40 bg-gray-100 rounded-md mb-4 flex items-center justify-center'>
+          <img src="https://images.pexels.com/photos/5793903/pexels-photo-5793903.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt='Spa' class='max-h-full object-cover rounded-md'>
+        </div>
+        <h3 class='font-semibold text-lg'>Spa</h3>
+        <p class='text-sm text-gray-600 mb-4'>A relaxing session with calming scents and gentle massage.</p>
+        <div class='mt-auto flex items-center justify-between'>
+          <span class='font-semibold'>$40</span>
+          <button onclick="addToCart('svc-spa', 'Spa', 40)" class='bg-amber-500 text-white px-3 py-2 rounded-md hover:bg-amber-600'>Add</button>
+        </div>
+      </article>
+      <!-- Grooming -->
+      <article class='bg-white rounded-xl shadow p-6 flex flex-col'>
+        <div class='h-40 bg-gray-100 rounded-md mb-4 flex items-center justify-center'>
+          <img src="https://pixabay.com/get/g2c2f38c7adcae3101949ca8e5ab6b274e1698db3a3e2ad2fc4022023d77096b29adcf372fd17489b5090f092726af4851e47911a682a897f7029cdb4b2a099bb_640.jpg" alt='Grooming' class='max-h-full object-cover rounded-md'>
+        </div>
+        <h3 class='font-semibold text-lg'>Grooming</h3>
+        <p class='text-sm text-gray-600 mb-4'>Coat trimming, brushing and finishing touches.</p>
+        <div class='mt-auto flex items-center justify-between'>
+          <span class='font-semibold'>$35</span>
+          <button onclick="addToCart('svc-groom', 'Grooming', 35)" class='bg-amber-500 text-white px-3 py-2 rounded-md hover:bg-amber-600'>Add</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class='bg-gray-900 text-white py-6 mt-12'>
+    <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-sm'>
+      <p class='text-center'>© 2025 Niyantri Dog Care. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('mobile-menu-button')?.addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      if (menu.classList.contains('hidden')) { menu.classList.remove('hidden'); } else { menu.classList.add('hidden'); }
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      const page = document.getElementById('page-content');
+      if (page) setTimeout(() => page.classList.add('opacity-100'), 60);
+      updateCartCount();
+    });
+
+    function getCart() { return JSON.parse(localStorage.getItem('shoppingCart')) || []; }
+    function saveCart(cart) { localStorage.setItem('shoppingCart', JSON.stringify(cart)); updateCartCount(); }
+    function addToCart(itemId, itemName, itemPrice) {
+      const cart = getCart();
+      const existing = cart.find(i => i.id === itemId);
+      if (existing) existing.quantity++; else cart.push({ id: itemId, name: itemName, price: itemPrice, quantity: 1 });
+      saveCart(cart);
+      alert(itemName + ' added to cart.');
+    }
+    function removeFromCart(itemId) {
+      let cart = getCart(); cart = cart.filter(i => i.id !== itemId); saveCart(cart); renderCartPage();
+    }
+    function updateCartCount() {
+      const cart = getCart(); const total = cart.reduce((s, i) => s + i.quantity, 0);
+      const el = document.getElementById('cart-count'); if (el) el.textContent = total;
+      const mEl = document.getElementById('mobile-cart-count'); if (mEl) mEl.textContent = total;
+    }
+    // cart page rendering is invoked if cart.html is loaded; here we keep a simple noop unless cart page is present
+  </script>
+</body>
+</html>
