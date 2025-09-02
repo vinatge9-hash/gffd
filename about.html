@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Niyantri Dog Care - About</title>
+  <script src='https://cdn.tailwindcss.com'></script>
+  <style>.opacity-0{opacity:0}.opacity-100{opacity:1}</style>
+</head>
+<body class='bg-gray-50'>
+  <header class='bg-white/70 backdrop-filter backdrop-blur-xl sticky top-0 z-50 shadow-sm'>
+    <nav class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <div class='flex items-center justify-between h-16'>
+        <a href='index.html' class='flex items-center text-xl font-bold text-gray-800'>Niyantri Dog Care</a>
+        <div class='hidden md:flex items-center space-x-4'>
+          <a href='index.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Home</a>
+          <a href='menu.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Services</a>
+          <a href='cart.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Cart (<span id='cart-count'>0</span>)</a>
+          <a href='about.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>About</a>
+          <a href='contact.html' class='text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium'>Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main id='page-content' class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 opacity-0'>
+    <section class='fade-in'>
+      <h1 class='text-3xl font-bold mb-2'>About Niyantri Dog Care</h1>
+      <p class='text-gray-700'>Based in Hyderabad, we specialize in bathing, spa and grooming services dedicated to the health and happiness of dogs. Our team prioritizes safety, comfort and personalized care for every pup.</p>
+    </section>
+  </main>
+  <footer class='bg-gray-900 text-white py-6'>
+    <div class='text-center text-sm'>© 2025 Niyantri Dog Care</div>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const page = document.getElementById('page-content'); if (page) page.classList.add('opacity-100');
+      // cart count
+      const el = document.getElementById('cart-count'); if (el) el.textContent = (JSON.parse(localStorage.getItem('shoppingCart')) || []).reduce((s,i)=>s+i.quantity,0);
+    });
+  </script>
+</body>
+</html>
